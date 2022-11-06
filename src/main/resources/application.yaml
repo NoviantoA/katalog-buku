@@ -1,0 +1,75 @@
+logging:
+  level:
+    '[novianto.anggoro.spring.catalog]' : DEBUG
+
+# spring data source
+spring:
+  datasource:
+    hikari:
+      connection-timeout: 600000
+      idle-timeout: 600000
+      max-lifetime: 1800000
+      maximum-pool-size: 10
+    url: jdbc:postgresql://127.0.0.1/book_catalog
+    username: novianto
+    password: novianto123
+  jpa:
+    database: postgresql
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+#        jdbc:
+#          batch_size: 100
+#        order_inserts: true
+    show-sql: true
+
+app :
+  currency: IDR
+  timezone: Asia/Jakarta
+  welcome-text: Hello world from kentod. this is from application.yaml
+
+cloud:
+  api-key: ${CLOUD_KEY}
+server:
+  port: 8080
+
+---
+spring:
+  config:
+    activate:
+      on-profile:
+        - development
+
+server:
+  port: 8003
+app:
+  welcome-text: Hello world by kentod, this is development server
+
+
+---
+spring:
+  config:
+    activate:
+      on-profile:
+        - test
+server:
+  port: 8082
+
+---
+spring:
+  config:
+    activate:
+      on-profile:
+        - production
+
+server:
+  port: 80
+
+---
+spring:
+  main:
+    allow-circular-references: true
+
+
